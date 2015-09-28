@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TasksController extends Controller
 {
@@ -24,13 +25,20 @@ class TasksController extends Controller
 
 
     /**
-     * Display all tasks.
+     * Display all tasks that belong to the user.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $tasks = Task::all();
+        /*$tasks = Task::all();*/
+        try
+        {
+            $tasks = Task::where('user_id', '=', Auth::user()->id)->get();
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
+
 
         return view('tasks.index', compact('tasks'));
 
@@ -61,7 +69,8 @@ class TasksController extends Controller
         $task = Task::create([
             'name'          => $request['name'],
             'description'   => $request['description'],
-            'status'        => 'active'
+            'status'        => 'active',
+            'user_id'       => Auth::user()->id,
         ]);
 
         return redirect('tasks');
@@ -77,7 +86,14 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $task = Task::where('id', '=', $id)->first();
+        try {
+            $task = Task::where('id', '=', $id)
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->firstOrFail();
+
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
 
         return view('tasks.show', compact('task'));
     }
@@ -92,7 +108,9 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::where('id', '=', $id)->first();
+        $task = Task::where('id', '=', $id)
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->firstOrFail();
 
         return view('tasks.edit', compact('task'));
     }
@@ -108,7 +126,9 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Task::where('id', '=', $id)->first();
+        $task = Task::where('id', '=', $id)
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->firstOrFail();
 
         $task->update($request->all());
 
@@ -125,23 +145,19 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::where('id', '=', $id)->first();
+        try {
+            $task = Task::where('id', '=', $id)
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->firstOrFail();
+
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }
 
         $task->delete();
 
         return redirect('/tasks');
     }
-
-
-    /**
-     * Returns a welcome message.
-     *
-     */
-    public function welcome()
-    {
-        return 'working on it';
-    }
-
 
 
     /**
@@ -153,7 +169,9 @@ class TasksController extends Controller
     public function active(Request $request)
     {
         // query to find only active tasks and return multiple rows possibly
-        $tasks = Task::where('status', '=', 'active')->get();
+        $tasks = Task::where('status', '=', 'active')
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->get();
 
         return view('tasks.active', compact('tasks'));
     }
@@ -169,7 +187,9 @@ class TasksController extends Controller
     public function completed(Request $request)
     {
         // query to find ony completed tasks and return multiple rows possibly
-        $tasks = Task::where('status', '=', 'completed')->get();
+        $tasks = Task::where('status', '=', 'completed')
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->get();
 
         return view('tasks.completed', compact('tasks'));
     }
@@ -184,7 +204,9 @@ class TasksController extends Controller
      */
     public function clear(Request $request)
     {
-        $tasks = Task::where('status', '=', 'completed')->get();
+        $tasks = Task::where('status', '=', 'completed')
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->get();
 
         foreach($tasks as $task){
             $task->delete();
