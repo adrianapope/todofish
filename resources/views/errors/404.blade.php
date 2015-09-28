@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-	<div class="404-wrapper">
+	<div class="404-page-wrapper">
 		<div class="row">
 			<div class="col-sm-6">
 				<h1>Oops!
