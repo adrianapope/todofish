@@ -8,35 +8,36 @@
 			<div class="col-sm-9">
 				<h1>Tasks</h1>
 			</div>
-			<div class="col-sm-3">
-				<a href="/tasks/create"><span class="btn btn-info">Create New Task</span></a>
-			</div>
 		</div>
 	</div>
 
 	<hr>
 
 	<div class="index-display-tasks-wrapper">
-		@foreach($tasks as $task)
-			<div class="row task-single @if($task->status == 'completed') task-completed @endif">
-				<div class="col-sm-1">
-					<form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="hidden" name="status" value="completed">
-						<button type="submit" class="btn btn-default checkmark">√</button>
-					</form>
+		@if(count($tasks))
+			@foreach($tasks as $task)
+				<div class="row task-single @if($task->status == 'completed') task-completed @endif">
+					<div class="col-sm-1">
+						<form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="status" value="completed">
+							<button type="submit" class="btn btn-default checkmark">√</button>
+						</form>
+					</div>
+					<div class="col-sm-10">
+						<h3><a href="/tasks/{{ $task->id }}">{{ ucwords($task->name) }}</a></h3>
+					</div>
+					<div class="col-sm-1">
+						<form method="POST" action="/tasks/{{ $task->id }}/delete" enctype="multipart/form-data">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<button type="submit" class="btn btn-danger">X</button>
+						</form>
+					</div>
 				</div>
-				<div class="col-sm-10">
-					<h3><a href="/tasks/{{ $task->id }}">{{ ucwords($task->name) }}</a></h3>
-				</div>
-				<div class="col-sm-1">
-					<form method="POST" action="/tasks/{{ $task->id }}/delete" enctype="multipart/form-data">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<button type="submit" class="btn btn-danger">X</button>
-					</form>
-				</div>
-			</div>
-		@endforeach
+			@endforeach
+		@else
+			<h3>There are no currently no tasks to display.</h3>
+		@endif
 	</div>
 
 	<hr>
