@@ -7,8 +7,8 @@
 		<div class="row">
 			<div class="col-sm-6">
 			<h1>ABOUT</h1>
-			<p>ToDoFish was created as a way to simplify managing tasks. Here, you can create, edit, delete tasks on the fly. This app helps you to keep organized by storing all of your to do items in one spot. ToDoFish enables you to keep track of tasks you've completed already with and items that tasks are still active.
-			</p>
+				<p>ToDoFish was created as a way to simplify managing tasks. Here, you can create, edit, delete tasks on the fly. This app helps you to keep organized by storing all of your to do items in one spot. ToDoFish enables you to keep track of tasks you've completed already with and items that tasks are still active.
+				</p>
 			</div>
 		</div>
 	</div>
