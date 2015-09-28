@@ -1,0 +1,13 @@
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+	padding-top: 70px;
+}
+
+.checkmark:hover {
+    background-color: green;
+}
+
+.task-completed h3 a {
+	text-decoration: line-through;
+}

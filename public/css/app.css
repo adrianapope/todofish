@@ -1,0 +1,10 @@
+body {
+  padding-top: 70px; }
+
+.checkmark:hover {
+  background-color: green; }
+
+.task-completed h3 a {
+  text-decoration: line-through; }
+
+/*# sourceMappingURL=app.css.map */
