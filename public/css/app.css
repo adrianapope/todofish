@@ -1,10 +1,28 @@
 body {
   padding-top: 70px; }
 
+ul {
+  padding: 0; }
+
 .checkmark:hover {
   background-color: green; }
 
 .task-completed h3 a {
   text-decoration: line-through; }
+
+.footer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 60px; }
+
+.footer li {
+  margin-right: 10px;
+  text-decoration: none;
+  display: inline-block;
+  list-style: none;
+  line-height: 2.2em; }
+
+.footer a:hover {
+  text-decoration: none; }
 
 /*# sourceMappingURL=app.css.map */
