@@ -30,6 +30,11 @@
 				</form>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<img src="/img/fishy.png" alt="orange fish" class="img-rounded img-responsive">
+			</div>
+		</div>
 	</div>
 </div>
 @stop
