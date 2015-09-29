@@ -35,3 +35,14 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 # Users Registration routes
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('/api/tasks', function() {
+	$tasks = \App\Task::all();
+	return response()->json($tasks);
+});
+
+Route::delete('/api/tasks/{id}', function() {
+	$task = \App\Task::where('id', '=', $id)->firstOrFail();
+	$task->delete();
+	return response()->json('Task deleted!');
+});
