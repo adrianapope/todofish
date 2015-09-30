@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TableTasksSeeder extends Seeder
+class TasksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,17 +13,15 @@ class TableTasksSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-		Task::truncate(); //clear out the entire Tasks table
+		\App\Task::truncate(); //clear out the entire Tasks table
 
-		foreach(range(1, 30) as $index) // creates 30 fakes
+		foreach(range(1, 5000) as $index) // creates 30 fakes
 		{
-			Task::create([
+			\App\Task::create([
 				'name' => $faker->sentence,
+				'user_id' => $faker->numberBetween(1, 10),
 				'description' => $faker->paragraph(4),
 			]);
 		}
-
     }
 }
-
-
