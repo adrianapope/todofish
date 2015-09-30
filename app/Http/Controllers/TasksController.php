@@ -34,7 +34,7 @@ class TasksController extends Controller
         /*$tasks = Task::all();*/
         try
         {
-            $tasks = Task::where('user_id', '=', Auth::user()->id)->get();
+            $tasks = Task::where('user_id', '=', Auth::user()->id)->paginate(15);
         } catch (ModelNotFoundException $e) {
             return abort(404);
         }
