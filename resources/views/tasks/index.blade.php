@@ -35,6 +35,7 @@
 					</div>
 				</div>
 			@endforeach
+			{!! $tasks->render() !!}
 		@else
 			<h3>There are no currently no tasks to display.</h3>
 		@endif
